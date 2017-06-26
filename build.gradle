@@ -14,6 +14,7 @@ apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'groovy'
 apply plugin: 'maven'
+apply plugin: 'signing'
 apply plugin: 'maven-publish'
 
 apply plugin: 'io.spring.dependency-management'
@@ -168,24 +169,25 @@ task sourcesJar(type: Jar, dependsOn: classes) {
 }
 
 javadoc {
-    //source configurations.doc.collect { zipTree(it) }
     include '**/*.java'
-    include '**/*.groovy'
     options.addStringOption('Xdoclint:none', '-quiet')
 }
 
 task javadocJar(type: Jar, dependsOn: [javadoc, groovydoc]) {
     classifier = 'javadoc'
-    from javadoc.destinationDir
-    from groovydoc.destinationDir
+    from javadoc
 }
-
 
 artifacts {
     archives sourcesJar
     archives javadocJar
 }
 
+signing {
+    sign configurations.archives
+}
+
+/*
 publishing {
     publications {
         mavenJava(MavenPublication) {
@@ -210,4 +212,50 @@ publishing {
 
         }
     }
+}
+*/
+
+uploadArchives {
+  repositories {
+    mavenDeployer {
+      beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+      repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+        authentication(userName: ossrhUsername, password: ossrhPassword)
+      }
+
+      snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+        authentication(userName: ossrhUsername, password: ossrhPassword)
+      }
+
+      pom.project {
+        name 'Example Application'
+        packaging 'jar'
+        // optionally artifactId can be defined here 
+        description 'spring RandomPort property source'
+        url 'https://github.com/vlad-mk/spring-randomport'
+
+        scm {
+          connection 'scm:git:https://github.com/vlad-mk/spring-randomport'
+          developerConnection 'scm:git:https://github.com/vlad-mk/spring-randomport'
+          url 'https://github.com/vlad-mk/spring-randomport'
+        }
+
+        licenses {
+          license {
+            name 'The Apache License, Version 2.0'
+            url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+          }
+        }
+
+        developers {
+          developer {
+            id 'vlad-mk'
+            name 'Vlad Mikerin'
+            email 'vladislav.mk@gmail.com'
+          }
+        }
+      }
+    }
+  }
 }

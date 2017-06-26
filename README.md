@@ -24,7 +24,7 @@ usage
 =====
 
 ```groovy
-testCompile group: 'io.github.vlad-mk', name: 'spring-randomport' ,  version: '0.1.2'
+testCompile group: 'io.github.vlad-mk', name: 'spring-randomport' ,  version: '0.1.3'
 ```
 
 
