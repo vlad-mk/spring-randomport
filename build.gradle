@@ -29,7 +29,7 @@ scmVersion {
     def verPattern = ~/[0-9]+\.[0-9]+.[0-9]+/
 
     tag {
-        prefix = 'v'
+        prefix = 'release-'
         serialize = {config, version -> prefix + version}
         deserialize = {config, position, tagName -> tagName.replaceFirst(~"^${prefix}", "")}
     }
