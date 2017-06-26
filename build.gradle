@@ -78,7 +78,7 @@ scmVersion {
 
 
 project.version = scmVersion.version
-project.group = 'io.itfun'
+project.group = 'io.github.vlad-mk'
 
 project.setBuildDir "target/build"
 idea.module {

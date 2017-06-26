@@ -5,6 +5,7 @@ Overview
 ---------
 
 Implements randomport  property source in spring, usually for test purposes.
+Takes an available TCP port number an assign it to a corresponding property.
 
 Property file example:
 ```
@@ -23,7 +24,7 @@ usage
 =====
 
 ```groovy
-testCompile group: 'io.itfun', name: 'spring-randomport' ,  version: '0.1.0'    
+testCompile group: 'io.github.vlad-mk', name: 'spring-randomport' ,  version: '0.1.2'
 ```
 
 
