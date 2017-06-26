@@ -5,6 +5,7 @@ Overview
 ---------
 
 Implements randomport  property source in spring, usually for test purposes.
+Takes an available TCP port number an assign it to a corresponding property.
 
 Property file example:
 ```
