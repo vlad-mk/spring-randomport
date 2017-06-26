@@ -1,4 +1,4 @@
-package io.itfun.randomport;
+package io.github.vladmk.randomport;
 
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;

@@ -1,4 +1,4 @@
 # Application Listeners
 org.springframework.context.ApplicationListener=\
-io.itfun.randomport.RandomPortAppListener
+io.github.vladmk.randomport.RandomPortAppListener
 

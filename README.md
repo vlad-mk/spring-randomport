@@ -23,7 +23,7 @@ usage
 =====
 
 ```groovy
-testCompile group: 'io.itfun', name: 'spring-randomport' ,  version: '0.1.0'    
+testCompile group: 'io.github.vlad-mk', name: 'spring-randomport' ,  version: '0.1.2'
 ```
 
 

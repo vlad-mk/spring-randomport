@@ -1,4 +1,4 @@
-package io.itfun.randomport;
+package io.github.vladmk.randomport;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.env.PropertySource;
