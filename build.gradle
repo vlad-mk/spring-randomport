@@ -215,6 +215,27 @@ publishing {
 }
 */
 
+import org.gradle.plugins.signing.Sign
+
+gradle.taskGraph.whenReady { taskGraph ->
+    if (taskGraph.allTasks.any { it instanceof Sign }) {
+        java.io.Console console = System.console()
+        if(console != null) {
+            console.printf "\n\nWe have to sign some things in this build." +
+                    "\n\nPlease enter your signing details.\n\n"
+
+            def password = console.readPassword("PGP Private Key Password: ")
+
+            allprojects { ext."signing.password" = password }
+
+            console.printf "\nThanks.\n\n"
+        } else logger.warn("warning: no console")
+        if(ext."signing.password".size() <= 0) //password can be saved in gpg-agent
+            logger.warn("warning: gpg password can be empty")
+
+    }
+}
+
 uploadArchives {
   repositories {
     mavenDeployer {
