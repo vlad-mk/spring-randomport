@@ -230,7 +230,7 @@ gradle.taskGraph.whenReady { taskGraph ->
 
             console.printf "\nThanks.\n\n"
         } else logger.warn("warning: no console")
-        if(ext."signing.password".size() <= 0) //password can be saved in gpg-agent
+        if(!project.hasProperty("signing.password")) //password can be saved in gpg-agent
             logger.warn("warning: gpg password can be empty")
 
     }
@@ -243,14 +243,18 @@ uploadArchives {
 
       repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
         authentication(userName: ossrhUsername, password: ossrhPassword)
+        if( System.getProperty("https.proxyHost") != null)
+          proxy(host:  System.getProperty("https.proxyHost"), port:  System.getProperty("https.proxyPort") as Integer, type: 'http')
       }
 
       snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
         authentication(userName: ossrhUsername, password: ossrhPassword)
+        if( System.getProperty("https.proxyHost") != null)
+          proxy(host:  System.getProperty("https.proxyHost"), port:  System.getProperty("https.proxyPort") as Integer, type: 'http')
       }
 
       pom.project {
-        name 'Example Application'
+        name 'spring-randomport'
         packaging 'jar'
         // optionally artifactId can be defined here 
         description 'spring RandomPort property source'
