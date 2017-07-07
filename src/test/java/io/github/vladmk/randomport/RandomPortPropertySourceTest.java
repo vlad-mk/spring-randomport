@@ -44,7 +44,7 @@ public class RandomPortPropertySourceTest {
     public void testPropertySource() throws Exception {
 
         this.initializer.postProcessEnvironment(this.environment, this.application);
-        new RandomPortAppListener().addPropertySources(this.environment);
+        RandomPortPropertySource.addToEnvironment(this.environment);
 
         String property = this.environment.getProperty("randomport.xxxxx");
         Assert.assertNotNull(property);

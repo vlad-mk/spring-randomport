@@ -135,10 +135,23 @@ dependencies {
             exclude module:"spring-boot-starter-logging"
     }
     testCompile "org.springframework.boot:spring-boot-starter-log4j2:${bootVer}"
-
+    testCompile "org.springframework.boot:spring-boot-test:${bootVer}"
+    testCompile "org.springframework:spring-test:${springVer}"
+    testCompile "org.cthul:cthul-matchers:1.1.0"
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
+test {
+    testLogging {
+        //showStandardStreams = true
+        events "passed", "skipped", "failed"
+        debug {
+            events "started", "skipped", "failed"
+            exceptionFormat "full"
+            showStackTraces = true
+        }
+    }
+}
 
 task sourcesJar(type: Jar, dependsOn: classes) {
     classifier = 'sources'
