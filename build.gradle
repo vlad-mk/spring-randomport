@@ -94,6 +94,9 @@ idea.module {
 ext {
     springVer = '4.3.7.RELEASE'
     bootVer = '1.5.2.RELEASE'
+
+    //dymmy password
+    ext.'signing.password'=''
 }
 
 sourceSets {
@@ -163,6 +166,7 @@ artifacts {
 }
 
 signing {
+    //TODO: check this!
     required { gradle.taskGraph.hasTask("uploadArchives") }
     sign configurations.archives
 }
