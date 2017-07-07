@@ -94,12 +94,6 @@ idea.module {
 ext {
     springVer = '4.3.7.RELEASE'
     bootVer = '1.5.2.RELEASE'
-
-    //dummy credentials
-    if(!project.hasProperty('ossrhUsername'))
-        ossrhUsername = ""
-    if(!project.hasProperty('ossrhPassword'))
-	    ossrhPassword = ""
 }
 
 sourceSets {
@@ -212,13 +206,15 @@ uploadArchives {
       beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
       repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-        authentication(userName: ossrhUsername, password: ossrhPassword)
+        if(project.hasProperty('ossrhUsername') && project.hasProperty('ossrhPassword'))
+          authentication(userName: ossrhUsername, password: ossrhPassword)
         if( System.getProperty("https.proxyHost") != null)
           proxy(host:  System.getProperty("https.proxyHost"), port:  System.getProperty("https.proxyPort") as Integer, type: 'http')
       }
 
       snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-        authentication(userName: ossrhUsername, password: ossrhPassword)
+        if(project.hasProperty('ossrhUsername') && project.hasProperty('ossrhPassword'))
+          authentication(userName: ossrhUsername, password: ossrhPassword)
         if( System.getProperty("https.proxyHost") != null)
           proxy(host:  System.getProperty("https.proxyHost"), port:  System.getProperty("https.proxyPort") as Integer, type: 'http')
       }
