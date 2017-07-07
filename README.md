@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/vlad-mk/spring-randomport.svg)](https://travis-ci.org/vlad-mk/spring-randomport)
+
 spring-randomport
 ======================
 
