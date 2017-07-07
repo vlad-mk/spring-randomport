@@ -94,6 +94,8 @@ ext {
     springVer = '4.3.7.RELEASE'
     bootVer = '1.5.2.RELEASE'
 }
+//dummy password, if we have no console
+allprojects { ext."signing.password" = "" }
 
 sourceSets {
     main {
@@ -123,44 +125,19 @@ dependencies {
     testCompileOnly "org.projectlombok:lombok:1.16.2"
     compile 'org.slf4j:slf4j-api:1.7.21'
 
-    compileOnly (group: 'org.springframework', name: 'spring-core', version: project.springVer)
+//    compileOnly (group: 'org.springframework', name: 'spring-core', version: project.springVer)
+//    compileOnly (group: 'org.springframework', name: 'spring-context', version: project.springVer)
     compileOnly( "org.springframework.boot:spring-boot:${bootVer}")
 
-    testCompile group: 'org.springframework', name: 'spring-core', version: project.springVer
+//    testCompile group: 'org.springframework', name: 'spring-core', version: project.springVer
+//    testCompile group: 'org.springframework', name: 'spring-context', version: project.springVer
     testCompile( group: 'org.springframework.boot', name: 'spring-boot-starter', version: bootVer) {
             exclude module:"spring-boot-starter-logging"
     }
     testCompile "org.springframework.boot:spring-boot-starter-log4j2:${bootVer}"
-    testCompile ('org.jboss.logging:jboss-logging:3.+') {
-        exclude(group: 'log4j', module: 'log4j')
-    }
-
-
-    testCompile 'com.sun.mail:javax.mail:1.5.5'
-
-    testCompile group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-yaml', version: '2.7.5'
-    testCompile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.5'
-
 
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
-
-/*
-bootRun {
-    if ( project.hasProperty("args") ) {
-        args project.args.tokenize(" ")
-    }
-
-    if ( project.hasProperty('jvmArgs') ) {
-        jvmArgs project.jvmArgs.tokenize(" ")
-    }
-}
-*/
-/*
-jar {
-    baseName = 'gs-batch-processing'
-}
-*/
 
 
 task sourcesJar(type: Jar, dependsOn: classes) {
@@ -221,18 +198,13 @@ gradle.taskGraph.whenReady { taskGraph ->
     if (taskGraph.allTasks.any { it instanceof Sign }) {
         java.io.Console console = System.console()
         if(console != null) {
-            console.printf "\n\nWe have to sign some things in this build." +
-                    "\n\nPlease enter your signing details.\n\n"
+            console.printf "\n\nWe have to sign artifacts.\n"
 
             def password = console.readPassword("PGP Private Key Password: ")
-
             allprojects { ext."signing.password" = password }
-
             console.printf "\nThanks.\n\n"
-        } else logger.warn("warning: no console")
-        if(!project.hasProperty("signing.password")) //password can be saved in gpg-agent
-            logger.warn("warning: gpg password can be empty")
-
+        } else
+            logger.info("No console available")
     }
 }
 
