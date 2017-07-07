@@ -107,16 +107,6 @@ sourceSets {
 }
 
 repositories {
-    maven { url nexusUrl }
-    ivy {
-        url nexusUrl
-        layout "pattern", {
-            m2compatible = true
-            artifact "[organisation]/[module]/[revision]/[artifact].[ext]"
-            ivy "[organisation]/[module]/[revision]/ivy.xml"
-        }
-    }
-
     mavenCentral()
 }
 
@@ -186,19 +176,6 @@ publishing {
             from components.java
             artifact sourcesJar
             artifact javadocJar
-
-        }
-    }
-    repositories {
-        maven {
-            credentials {
-                username nexusUser
-                password nexusPassword
-            }
-            if(project.version.endsWith("-SNAPSHOT"))
-                url nexusUrl.replace("groups/public", "repositories/snapshots")
-            else
-                url nexusUrl.replace("groups/public", "repositories/releases")
 
         }
     }
