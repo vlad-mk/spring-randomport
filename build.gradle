@@ -204,6 +204,8 @@ gradle.taskGraph.whenReady { taskGraph ->
 }
 
 uploadArchives {
+  dependsOn build
+
   repositories {
     mavenDeployer {
       beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
@@ -251,3 +253,4 @@ uploadArchives {
     }
   }
 }
+
