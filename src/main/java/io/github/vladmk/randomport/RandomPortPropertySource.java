@@ -1,6 +1,9 @@
 package io.github.vladmk.randomport;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.env.ConfigurableEnvironment;
+import org.springframework.core.env.Environment;
+import org.springframework.core.env.MutablePropertySources;
 import org.springframework.core.env.PropertySource;
 
 import java.io.IOException;
@@ -13,6 +16,17 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @Slf4j
 public class RandomPortPropertySource extends PropertySource<RandomPortPropertySource.RandomPortPropertySoureHandler> {
+
+    public static void addToEnvironment(Environment xenv) {
+        if (xenv instanceof ConfigurableEnvironment) {
+            ConfigurableEnvironment env = (ConfigurableEnvironment)xenv;
+            MutablePropertySources sources = env.getPropertySources();
+            if (!sources.contains(RandomPortPropertySource.SOURCE_NAME))
+                log.info("Adding RandomPort Properties");
+            RandomPortPropertySource propertySource = new RandomPortPropertySource();
+            sources.addLast(propertySource);
+        }
+    }
 
     static class RandomPortPropertySoureHandler {
 
@@ -41,7 +55,7 @@ public class RandomPortPropertySource extends PropertySource<RandomPortPropertyS
 
 
     public RandomPortPropertySource(String name)  {
-        super(name, new RandomPortPropertySoureHandler());
+        super(name == null || name.isEmpty()?SOURCE_NAME : name, new RandomPortPropertySoureHandler());
         log.debug("Init property source {}", name);
     }
     public RandomPortPropertySource()  {
