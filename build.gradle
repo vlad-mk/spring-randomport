@@ -93,6 +93,11 @@ idea.module {
 ext {
     springVer = '4.3.7.RELEASE'
     bootVer = '1.5.2.RELEASE'
+    if(!project.hasProperty('ossrhUsername'))
+        ossrhUsername = ""
+    if(!project.hasProperty('ossrhPassword'))
+	    ossrhPassword = ""
+
 }
 //dummy password, if we have no console
 allprojects { ext."signing.password" = "" }
