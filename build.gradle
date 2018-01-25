@@ -186,8 +186,10 @@ publishing {
 }
 */
 
-import org.gradle.plugins.signing.Sign
 
+/*
+import org.gradle.plugins.signing.Sign
+//ask for a password
 gradle.taskGraph.whenReady { taskGraph ->
     if (taskGraph.allTasks.any { it instanceof Sign }) {
         java.io.Console console = System.console()
@@ -201,6 +203,7 @@ gradle.taskGraph.whenReady { taskGraph ->
             logger.info("No console available")
     }
 }
+*/
 
 uploadArchives {
   dependsOn build, signArchives
