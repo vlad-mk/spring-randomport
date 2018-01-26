@@ -245,14 +245,6 @@ uploadArchives {
             url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
           }
         }
-
-        developers {
-          developer {
-            id 'vlad-mk'
-            name 'Vlad Mikerin'
-            email 'vladislav.mk@gmail.com'
-          }
-        }
       }
     }
   }
