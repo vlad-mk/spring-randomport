@@ -1,6 +1,11 @@
+0.1.6 (2018/01/26)
+------------------
+* deployment bug fixes
+
+
 0.1.4 (2017/07/07)
 ------------------
-* dependencies changd
+* dependencies changed
 * property factory added
 
 
