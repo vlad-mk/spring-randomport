@@ -186,8 +186,10 @@ publishing {
 }
 */
 
-import org.gradle.plugins.signing.Sign
 
+/*
+import org.gradle.plugins.signing.Sign
+//ask for a password
 gradle.taskGraph.whenReady { taskGraph ->
     if (taskGraph.allTasks.any { it instanceof Sign }) {
         java.io.Console console = System.console()
@@ -201,6 +203,7 @@ gradle.taskGraph.whenReady { taskGraph ->
             logger.info("No console available")
     }
 }
+*/
 
 uploadArchives {
   dependsOn build, signArchives
@@ -240,14 +243,6 @@ uploadArchives {
           license {
             name 'The Apache License, Version 2.0'
             url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-          }
-        }
-
-        developers {
-          developer {
-            id 'vlad-mk'
-            name 'Vlad Mikerin'
-            email 'vladislav.mk@gmail.com'
           }
         }
       }

@@ -73,7 +73,7 @@ dependencies
 ============
 
 ```groovy
-testCompile group: 'io.github.vlad-mk', name: 'spring-randomport' ,  version: '0.1.4'
+testCompile group: 'io.github.vlad-mk', name: 'spring-randomport' ,  version: '0.1.6'
 ```
 
 
